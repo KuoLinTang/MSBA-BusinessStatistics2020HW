@@ -28,19 +28,20 @@ Submit this file and the knitted html as a zip file (e.g., 1912345.zip) _by righ
 
 # Question 1 Section 1
 
-Figure 1 is the histogram of sales differences of stores in percentage. I fit the percentage of sales differences between period 1 (before the trial) and period 2 (after the trial) with a linear regression model. The sales difference of stores in trial is 1.42% 95% CI[0.85% 1.98%]. The sales difference of stores not in trial is 0.1% 95% CI[-0.45% 0.65%]. The new store layout increased 1.31% 95% CI[0.53%, 2.1%] of sales difference of stores. This improvement is significant, $t(538) = 3.27$, $p = 0.0011$. 
+Figure 1 is the histogram of sales differences of stores in percentage. From period 1 to period 2, the sales difference of stores in trial increases 1.42% 95% CI[0.85% 1.98%]. The sales difference of stores not in trial only increases 0.1% 95% CI[-0.45% 0.65%]. Then, the new layout increases 1.31% 95% CI[0.53%, 2.1%] of sales difference of stores. This improvement is significant, $t(538) = 3.27$, $p = 0.0011$. 
 
 ![](sales.difference.in.percentage.histogram.png) 
 Figure 1. A histogram of the sales difference of stores. New design stores and ordinary stores are specified by different colours.
 
 
-Moreover, I prefer using **percentage data** to **GBP data** while practicing ***ANOVA*** to examine the effect of the new layout. While sales of some of stores are generally much higher than sales of the others, examining the difference of sales is insufficient. For example, the store, whose Outlet_ID is "*EhJV*", has a fewer sales improvement in GBP than the store "*JI92*". Nonetheless, the original sales of the store "*EhJV*" is much lower than that of the store "*JI92*". Actually, this store performs better as it has a higher increasing rate, $8.46%$. Therefore, I prefer percentage measure while performing ANOVA. 
-On the other hand, I also performed ***repeated measure ANOVA*** to correctly control the link between sales_1 and sales2 since sales1 and sales2 are **not independent**. In this case, sales differences are not needed, so I can simply use the GBP data to examine the effect of the new store design.
+I prefer using **percentage data** while practicing ***ANOVA*** to examine the effect of the new layout. Since some of stores generally have much higher sales than the others, only examining the sales difference is insufficient. For example, the store, whose Outlet_ID is *"EhJV"*, has a fewer sales improvement ($577221.4$ GBP) in GBP than the store *"JI92"* ($684439.4$ GBP). Nonetheless, the original sales of the store *"EhJV"* ($6821444$ GBP) is much lower than that of the store *"JI92"* ($15629310$ GBP). Actually, this store is better as it has a higher increasing rate, $8.46%$. Therefore, I prefer percentage measure while performing ANOVA. 
+
+On the other hand, since each row of sales_1 and sales_2 are the multiple measurements from the same outlet, ***repeated measure ANOVA*** is performed to correctly control the link between sales_1 and sales2. In this case, sales differences are not needed, so I simply use the GBP data here.
 
 ---
 
 # Question 2 Section 1
-Figure 2 presents the sales difference in percentage by different outlet types. There is a strong interaction between intrial and outlettype, $F(2, 534) = 57.08$. That means a different effect in different outlet types exists. For **community_convenience** outlets, stores in trial got 3.49% 95% CI[2.56% 4.43%] of sales improvement more than stores without any change, $t(534) = 7.33$, $p < 0.0001$. For **superstores**, stores with the new layout got 3.48% 95% CI[2% 4.96%] of sales improvement more than stores not in trial, $t(534) = 4.625$, $p < 0.0001$. However, the pattern at **city_centre_convenience** outlets is different. The percentage of sales difference of stores in trial is 4.39% 95% CI[-5.61% -3.18%] **lower** than that of stores not in trial, $t(534) = -7.11$, $p < 0.0001$. Therefore, the new store design will not cause a positive effect to the sales of **city_centre_convenience** outlets.
+Figure 2 presents the sales difference in percentage by different outlet types. There is a strong interaction between intrial and outlettype, $F(2, 534) = 57.08$. That means a different effect in different outlet types does exist. For **community_convenience** outlets, stores in trial get 3.49% 95% CI[2.56% 4.43%] of sales improvement more than stores without any change, $t(534) = 7.33$, $p < 0.0001$. For **superstores**, stores in trial gets 3.48% 95% CI[2% 4.96%] of sales improvement more than stores not in trial, $t(534) = 4.625$, $p < 0.0001$. However, the pattern of **city_centre_convenience** outlets is different. The percentage of sales difference of stores in trial is 4.39% 95% CI[-5.61% -3.18%] **lower** than that of stores not in trial, $t(534) = -7.11$, $p < 0.0001$. Therefore, the effect of the new store design is negative to **city_centre_convenience** outlets.
 
 ![](sales.difference.by.outlettype.and.intrial.png) 
 Figure 2. A scatter plot of the sales difference in percentage by different types of outlets. New design stores and ordinary stores are specified by different colours.
@@ -354,7 +355,8 @@ ggplot(summary(per.sales.intrial.emm),
 The figure shows the sales difference in percentage from each type of stores. Sales difference of stores in trial is higher than sales difference of stores not in trial.
 
 
-## Controlling the link between sales_1 and sales_2
+## Controlling the link between sales_1 and sales_2 
+Each row of sales_1 and sales_2 are the multiple measurements from the same outlet.
 ### Create a longer dataset
 ```{r}
 # Create a longer dataset to gather the variable "sales_1" and the variable "sales_2"
