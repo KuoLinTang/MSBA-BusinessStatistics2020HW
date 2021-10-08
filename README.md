@@ -1,4 +1,4 @@
-# Business Statistics Individual Assignment (MSBA 2020)
+# Business Statistics Individual Project (MSBA 2020/21)
 
 ## The Scenario
 
